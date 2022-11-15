@@ -69,9 +69,9 @@ func generateString(str string) string {
 
 func optimalComparison(s string, t string) bool {
 	p1, p2 := len(s)-1, len(t)-1 // Initializing pointers
-	counter1, counter2, d1, d2 := 0, 0, 0, 0 // Cat counter
+	counter1, counter2 := 0, 0 // Cat counter
 
-	for i := 0; d1 <= len(s) || d2 <= len(t); i++ {
+	for i := 0; p1 >= 0 || p2 >= 0; i++ {
 		// Count '#'
 		p1 = countCats(&p1, &counter1, s)
 		p2 = countCats(&p2, &counter2, t)
@@ -87,9 +87,6 @@ func optimalComparison(s string, t string) bool {
 		// Move left
 		p1--
 		p2--
-		// Update distances
-		d1 = len(s) - p1 
-		d2 = len(t) - p2
 	}
 	// Were equal
 	return true

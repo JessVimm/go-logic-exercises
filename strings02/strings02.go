@@ -1,3 +1,4 @@
+// Given a string s, find the length of the longest substring without repeating characters.
 package strings02
 
 import (
@@ -12,16 +13,16 @@ func StringsProblemTwo() {
 
 func lengthOfLongestSubstring(s string) int {
 	maxLength := 1
-	
-	if len(s) > 0 {	
+
+	if len(s) > 0 {
 		for base := 0; base < len(s); base++ {
 			var charsSeen []string
 			charsSeen = append(charsSeen, string(s[base]))
 			baseLength := 1
 			foundSmilarChar := false
 
-			if len(s) - base <= maxLength {
-				break;
+			if len(s)-base <= maxLength {
+				break
 			}
 
 			for p := base + 1; p < len(s); p++ {
@@ -30,12 +31,12 @@ func lengthOfLongestSubstring(s string) int {
 					if c == string(s[p]) {
 						// Look elsewhere
 						foundSmilarChar = true
-						break;
+						break
 					}
 				}
 
 				if foundSmilarChar {
-					break;
+					break
 				} else {
 					baseLength++
 					if baseLength > maxLength {
@@ -44,7 +45,7 @@ func lengthOfLongestSubstring(s string) int {
 					charsSeen = append(charsSeen, string(s[p]))
 				}
 			}
-		} 
+		}
 	} else {
 		maxLength = 0
 	}

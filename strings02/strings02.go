@@ -6,9 +6,12 @@ import (
 )
 
 func StringsProblemTwo() {
-	var str string = "cinturita"
+	var str string = "aaaaffruiknla"
 	numChars := lengthOfLongestSubstring(str)
-	fmt.Printf("Longest substring has %v characters...", numChars)
+	fmt.Printf("Longest substring with brute force solution has %v number of characters...", numChars)
+	fmt.Println()
+	numChars = optimalSolution(str)
+	fmt.Printf("Longest substring with the optimal solution has %v number of characters", numChars)
 }
 
 func lengthOfLongestSubstring(s string) int {
@@ -51,4 +54,38 @@ func lengthOfLongestSubstring(s string) int {
 	}
 
 	return maxLength
+}
+
+func optimalSolution(s string) int {
+	// Defining windows limits, hash map of seen chars and max len
+	startPoint, maxLen := 0, 0
+	seenChars := make(map[string]int)
+
+	if len(s) <= 1 {
+		return len(s)
+	} else {
+		// Do until endPoint is at end of s
+		for endPoint:= 0; endPoint < len(s); endPoint++ {
+			// Have we seen this char?
+			idx, charAlreadySeen := seenChars[string(s[endPoint])]
+
+			if charAlreadySeen {
+				// Check if idx was already part of curr substring
+				if idx >= startPoint {
+					// There is a repetition
+					// Move start point
+					startPoint = idx + 1
+				} 
+			}
+			// Update seen position for this char
+			seenChars[string(s[endPoint])] = endPoint 
+			windowSize := (endPoint - startPoint) + 1
+
+			// Update maxlen
+			if windowSize > maxLen {
+				maxLen = windowSize
+			}
+		}
+		return maxLen
+	}
 }
